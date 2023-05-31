@@ -21,4 +21,7 @@
     <string name="next">Далее</string>
     <string name="resetPassword">Сброс пароля</string>
     <string name="registartion">Регистрация</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="birthday">Дата рождения</string>
 </resources>
