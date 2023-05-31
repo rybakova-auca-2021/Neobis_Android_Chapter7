@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_resetPasswordFragment_to_resetSendToEmailFragment"
             app:destination="@id/resetSendToEmailFragment" />
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -43,11 +46,11 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_registrationFragment_to_createPasswordFragment2"
-            app:destination="@id/createPasswordFragment2" />
-        <action
             android:id="@+id/action_registrationFragment_to_splashScreenFragment2"
             app:destination="@id/splashScreenFragment2" />
+        <action
+            android:id="@+id/action_registrationFragment_to_additionalInfoFragment2"
+            app:destination="@id/additionalInfoFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -64,15 +67,19 @@
         android:label="fragment_create_password"
         tools:layout="@layout/fragment_create_password" >
         <action
+            android:id="@+id/action_createPasswordFragment2_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+        <action
             android:id="@+id/action_createPasswordFragment2_to_additionalInfoFragment2"
             app:destination="@id/additionalInfoFragment2" />
-        <action
-            android:id="@+id/action_createPasswordFragment2_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/additionalInfoFragment2"
         android:name="com.example.loginandsignup.view.additionalInformation.AdditionalInfoFragment"
         android:label="fragment_additional_info"
-        tools:layout="@layout/fragment_additional_info" />
+        tools:layout="@layout/fragment_additional_info" >
+        <action
+            android:id="@+id/action_additionalInfoFragment2_to_createPasswordFragment2"
+            app:destination="@id/createPasswordFragment2" />
+    </fragment>
 </navigation>
