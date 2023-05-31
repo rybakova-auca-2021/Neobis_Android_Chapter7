@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.resetPassword.ResetSendToEmailFragment">
+
+    <TextView
+        android:id="@+id/laughAndSmile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/laughAndSmileEveryDay"
+        android:textColor="#5D5FEF"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="NotSibling" />
+
+    <ImageView
+        android:id="@+id/imageSmile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/laughAndSmile"
+        app:srcCompat="@drawable/smile" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toStartOf="@+id/registration"
+            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/button_back" />
+
+        <TextView
+            android:id="@+id/registration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Сброс пароля"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/emailButton"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:background="#F5F5F5"
+        android:fontFamily="@font/gothampro_medium"
+        android:hint="Электронная почта"
+        android:inputType="textEmailAddress"
+        android:textColor="#C1C1C1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/laughAndSmile"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="#F7F7F8"
+        android:fontFamily="@font/gothampro_medium"
+        android:text="Далее"
+        android:textColor="#C1C1C1"
+        app:layout_constraintEnd_toEndOf="@+id/emailButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailButton"
+        app:layout_constraintTop_toBottomOf="@+id/emailButton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

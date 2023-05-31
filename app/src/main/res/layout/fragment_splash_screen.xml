@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.SplashScreenFragment">
+
+    <ImageView
+        android:id="@+id/imageSmile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/smile"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/laughAndSmile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/laughAndSmileEveryDay"
+        android:textColor="#5D5FEF"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageSmile"
+        tools:ignore="VisualLintBounds" />
+
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="320sp"
+        android:layout_height="75sp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#5D5FEE"
+        android:text="@string/startToUse"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/laughAndSmile" />
+
+    <TextView
+        android:id="@+id/haveAnAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-black"
+        android:minHeight="48dp"
+        android:text="@string/doYouHaveAnAccount"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_start"
+        app:layout_constraintStart_toStartOf="@+id/button_start"
+        app:layout_constraintTop_toBottomOf="@+id/button_start" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

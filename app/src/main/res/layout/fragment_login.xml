@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.authorization.LoginFragment">
+
+
+    <ImageView
+        android:id="@+id/imageSmile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/smile"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/emailButton"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="70dp"
+        android:background="#F5F5F5"
+        android:fontFamily="@font/gothampro_medium"
+        android:hint="@string/mail"
+        android:inputType="textEmailAddress"
+        android:textColor="#C1C1C1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageSmile"
+        tools:ignore="MissingConstraints"
+        android:autofillHints="emailAddress" />
+
+    <EditText
+        android:id="@+id/passwordButton"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:background="#F5F5F5"
+        android:fontFamily="@font/gothampro_medium"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="#C1C1C1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailButton"
+        tools:ignore="MissingConstraints"
+        android:autofillHints="password" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="180dp"
+        android:backgroundTint="#F7F7F8"
+        android:fontFamily="@font/gothampro_medium"
+        android:text="@string/login"
+        android:textColor="#C1C1C1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/emailButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailButton"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/isPasswordVisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ispasswordvisible"
+        app:layout_constraintBottom_toBottomOf="@+id/passwordButton"
+        app:layout_constraintEnd_toEndOf="@+id/passwordButton"
+        app:layout_constraintTop_toTopOf="@+id/passwordButton"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/gothampro_medium"
+        android:text="@string/forgotPassword"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
