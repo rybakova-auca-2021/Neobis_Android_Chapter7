@@ -15,55 +15,60 @@
         android:text="@string/laughAndSmileEveryDay"
         android:textColor="#5D5FEF"
         android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:ignore="NotSibling" />
+        tools:ignore="VisualLintBounds" />
 
     <ImageView
         android:id="@+id/imageSmile"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginStart="361dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/laughAndSmile"
+        app:layout_constraintStart_toStartOf="@+id/laughAndSmile"
         app:layout_constraintTop_toTopOf="@+id/laughAndSmile"
-        app:srcCompat="@drawable/smile" />
+        app:srcCompat="@drawable/smile"
+        tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/button_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toStartOf="@+id/registration"
-            app:layout_constraintStart_toStartOf="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/button_back" />
+    <TextView
+        android:id="@+id/registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/resetPassword"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/registration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="Сброс пароля"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-    </androidx.appcompat.widget.Toolbar>
+    <ImageView
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/button_back"
+        tools:ignore="ContentDescription" />
 
     <EditText
         android:id="@+id/emailButton"
@@ -78,21 +83,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/laughAndSmile"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints"
+        android:autofillHints="emailAddress" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="320dp"
         android:layout_height="65dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:backgroundTint="#F7F7F8"
         android:fontFamily="@font/gothampro_medium"
-        android:text="Далее"
+        android:text="@string/next"
         android:textColor="#C1C1C1"
         app:layout_constraintEnd_toEndOf="@+id/emailButton"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/emailButton"
-        app:layout_constraintTop_toBottomOf="@+id/emailButton" />
+        app:layout_constraintTop_toBottomOf="@+id/emailButton"
+        tools:ignore="TextContrastCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
