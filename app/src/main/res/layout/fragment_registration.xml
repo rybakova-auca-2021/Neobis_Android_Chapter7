@@ -16,7 +16,7 @@
         android:textColor="#5D5FEF"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="VisualLintBounds" />
 
@@ -24,7 +24,11 @@
         android:id="@+id/imageSmile"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginStart="361dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/laughAndSmile"
+        app:layout_constraintStart_toStartOf="@+id/laughAndSmile"
         app:layout_constraintTop_toTopOf="@+id/laughAndSmile"
         app:srcCompat="@drawable/smile"
         tools:ignore="ContentDescription" />
@@ -59,9 +63,8 @@
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toStartOf="@+id/registration"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/button_back"

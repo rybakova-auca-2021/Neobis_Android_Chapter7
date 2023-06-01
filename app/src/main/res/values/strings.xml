@@ -5,7 +5,7 @@
     <string name="doYouHaveAnAccount">Есть аккаунт? Войти</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dialog_message_sentToMail">На вашу почту \"почта\" было отправлено письмо</string>
+    <string name="dialog_message_sentToMail">На вашу почту было отправлено письмо</string>
     <string name="dialog_message_closw">Закрыть</string>
     <string name="forgotPassword">Забыли пароль?</string>
     <string name="login">Войти</string>
