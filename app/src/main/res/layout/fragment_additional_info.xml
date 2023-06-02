@@ -9,9 +9,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_reg_name_profile_fragment"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="335dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="56dp"
+        android:layout_marginEnd="30dp"
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +26,8 @@
             android:background="#F5F5F5"
             android:fontFamily="@font/gothampro"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -32,9 +35,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_surname_profile_fragment"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="335dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="30dp"
         android:hint="@string/surname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,15 +52,18 @@
             android:background="#F5F5F5"
             android:fontFamily="@font/gothampro"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_birth_profile_fragment"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="335dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="30dp"
         android:hint="@string/birthday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,15 +76,18 @@
             android:background="#F5F5F5"
             android:fontFamily="@font/gothampro"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:inputType="date"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_email_profile_fragment"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="335dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="30dp"
         android:hint="@string/mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +100,8 @@
             android:background="#F5F5F5"
             android:fontFamily="@font/gothampro"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -99,7 +111,7 @@
         android:layout_marginTop="40dp"
         android:backgroundTint="#F7F7F8"
         android:fontFamily="@font/gothampro_medium"
-        android:text="Зарегистрироваться"
+        android:text="@string/register"
         android:textColor="#C1C1C1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"

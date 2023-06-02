@@ -24,4 +24,5 @@
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
     <string name="birthday">Дата рождения</string>
+    <string name="register">Зарегистрироваться</string>
 </resources>
