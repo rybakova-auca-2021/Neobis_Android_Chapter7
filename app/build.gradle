@@ -81,4 +81,7 @@ dependencies {
     def nav_version = "2.4.0-alpha01"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+    implementation 'javax.activation:activation:1.1.1'
 }
