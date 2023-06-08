@@ -25,4 +25,7 @@
     <string name="surname">Фамилия</string>
     <string name="birthday">Дата рождения</string>
     <string name="register">Зарегистрироваться</string>
+    <string name="email_already_registered">"Данная почта уже зарегистрирована"</string>
+    <string name="incorrect_login">"Неправильный логин или пароль"</string>
+    <string name="try_again">Попробуйте еще раз</string>
 </resources>

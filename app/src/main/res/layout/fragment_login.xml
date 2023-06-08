@@ -92,5 +92,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/errorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/gothampro"
+        android:text="Неверный логин или пароль"
+        android:textColor="#FF0000"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/passwordButton"
+        app:layout_constraintStart_toStartOf="@+id/passwordButton"
+        app:layout_constraintTop_toBottomOf="@+id/passwordButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

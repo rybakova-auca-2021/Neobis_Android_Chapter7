@@ -77,7 +77,7 @@
             android:fontFamily="@font/gothampro"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:inputType="date"/>
+            android:maxLength="10"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

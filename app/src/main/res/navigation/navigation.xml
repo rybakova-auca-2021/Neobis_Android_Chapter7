@@ -39,6 +39,12 @@
         <action
             android:id="@+id/action_resetPasswordFragment_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+        <argument
+            android:name="uidb64"
+            app:argType="string" />
+        <argument
+            android:name="token"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -51,6 +57,9 @@
         <action
             android:id="@+id/action_registrationFragment_to_additionalInfoFragment2"
             app:destination="@id/additionalInfoFragment2" />
+        <action
+            android:id="@+id/action_registrationFragment_to_createPasswordFragment2"
+            app:destination="@id/createPasswordFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -60,6 +69,9 @@
         <action
             android:id="@+id/action_loginFragment2_to_resetSendToEmailFragment"
             app:destination="@id/resetSendToEmailFragment" />
+        <action
+            android:id="@+id/action_loginFragment2_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPasswordFragment2"
@@ -81,5 +93,12 @@
         <action
             android:id="@+id/action_additionalInfoFragment2_to_createPasswordFragment2"
             app:destination="@id/createPasswordFragment2" />
+        <argument
+            android:name="deepLinkUri"
+            app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.loginandsignup.view.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

@@ -100,5 +100,18 @@
         app:layout_constraintTop_toBottomOf="@+id/emailButton"
         tools:ignore="TextContrastCheck" />
 
+    <TextView
+        android:id="@+id/emailErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/gothampro"
+        android:text="Данная почта уже зарегистрирована"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/emailButton"
+        app:layout_constraintStart_toStartOf="@+id/emailButton"
+        app:layout_constraintTop_toBottomOf="@+id/emailButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
