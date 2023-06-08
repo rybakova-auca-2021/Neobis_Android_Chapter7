@@ -1,5 +1,7 @@
 package com.example.loginandsignup.view.authorization
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -8,14 +10,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.api.ApiInterface
+import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentLoginBinding
+import com.example.loginandsignup.model.LoginRequest
+import com.example.loginandsignup.response.LoginResponse
+import com.example.loginandsignup.viewModel.LoginViewModel
+//import com.example.loginandsignup.model.LoginRequest
+//import com.example.loginandsignup.response.LoginResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    private val apiInterface: ApiInterface = RetrofitInstance.api
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +49,9 @@ class LoginFragment : Fragment() {
 
     private fun navigation() {
         binding.loginButton.setOnClickListener {
-            //TODO - проверка на наличие данных в базе
+            val email = binding.emailButton.text.toString()
+            val password = binding.passwordButton.text.toString()
+            login(email, password)
         }
         binding.forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment2_to_resetSendToEmailFragment)
@@ -78,8 +96,32 @@ class LoginFragment : Fragment() {
         binding.passwordButton.setSelection(binding.passwordButton.text?.length ?: 0)
     }
 
-    private fun checkForCorrectnessOfMailAndPassword() {
-        //TODO - проверка в базе данных
+    private fun login(email: String, password: String) {
+        val request = LoginRequest(email, password)
+        apiInterface.login(request).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful) {
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
+                        val tokens = loginResponse.tokens
+                        val refreshToken = tokens.refresh
+                        val accessToken = tokens.access
+                        loginViewModel.token = refreshToken
+                        loginViewModel.uidb64 = accessToken
+                    }
+                    findNavController().navigate(R.id.action_loginFragment2_to_profileFragment)
+                } else {
+                    emailOrPasswordIsNotRegistered()
+                }
+            }
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Login failed. Please try again.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
-
+    private fun emailOrPasswordIsNotRegistered() {
+        binding.errorMessage.text = getString(R.string.incorrect_login)
+        binding.errorMessage.visibility = View.VISIBLE
+        binding.emailButton.setTextColor(ColorStateList.valueOf(Color.RED));
+    }
 }
