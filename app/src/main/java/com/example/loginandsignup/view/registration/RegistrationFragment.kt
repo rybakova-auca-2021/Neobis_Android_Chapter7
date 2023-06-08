@@ -1,7 +1,8 @@
 package com.example.loginandsignup.view.registration
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -9,15 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentRegistrationBinding
+import com.example.loginandsignup.model.EmailRegistrationRequest
+import com.example.loginandsignup.response.EmailRegistrationResponse
+import com.example.loginandsignup.response.EmailVerificationResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding
+    private val viewModel: com.example.loginandsignup.viewModel.RegistrationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,16 +39,67 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         changeButtonColor()
-        navigation()
+        setupNavigation()
     }
 
-    private fun navigation() {
+    private fun setupNavigation() {
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_registrationFragment_to_splashScreenFragment2)
         }
         binding.loginButton.setOnClickListener {
-            showCustomDialog()
+            val email = binding.emailButton.text.toString()
+            if (isValidEmail(email)) {
+                viewModel.email = email
+                registerWithEmail(email)
+            } else {
+                Toast.makeText(requireContext(),"Invlalid email", Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    private fun registerWithEmail(email: String) {
+        val request = EmailRegistrationRequest(email)
+        val apiInterface = RetrofitInstance.api
+        val call = apiInterface.registerWithEmail(request)
+
+        call.enqueue(object : Callback<EmailRegistrationResponse> {
+            override fun onResponse(
+                call: Call<EmailRegistrationResponse>,
+                response: Response<EmailRegistrationResponse>
+            ) {
+                if (response.isSuccessful) {
+                    sendVerificationEmail(email)
+                    showCustomDialog()
+                } else {
+                    showEmailAlreadyRegisteredError()
+                }
+            }
+            override fun onFailure(call: Call<EmailRegistrationResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun sendVerificationEmail(email: String) {
+        val apiInterface = RetrofitInstance.api
+        val call = apiInterface.verifyEmail(email)
+        call.enqueue(object : Callback<EmailVerificationResponse> {
+            override fun onResponse(
+                call: Call<EmailVerificationResponse>,
+                response: Response<EmailVerificationResponse>
+            ) {
+                Toast.makeText(requireContext(), "Mail sent", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(call: Call<EmailVerificationResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val pattern = Patterns.EMAIL_ADDRESS
+        return pattern.matcher(email).matches()
     }
 
     private fun changeButtonColor() {
@@ -51,12 +111,13 @@ class RegistrationFragment : Fragment() {
             binding.loginButton.setBackgroundColor(requireContext().getColor(buttonColor))
         }
     }
-    private fun isValidEmail(email: String): Boolean {
-        val pattern = Patterns.EMAIL_ADDRESS
-        return pattern.matcher(email).matches()
+    private fun showEmailAlreadyRegisteredError() {
+        binding.emailErrorMessage.text = getString(R.string.email_already_registered)
+        binding.emailErrorMessage.visibility = View.VISIBLE
+        binding.emailButton.setTextColor(ColorStateList.valueOf(Color.RED))
+        binding.emailButton.setBackgroundResource(R.drawable.bitton_border_red)
     }
 
-    @SuppressLint("MissingInflatedId")
     private fun showCustomDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_mail, null)
         val dialogButton = dialogView.findViewById<Button>(R.id.dialogButton)
@@ -67,15 +128,9 @@ class RegistrationFragment : Fragment() {
 
         val alertDialog = builder.create()
 
-        // Handle dialog button click
         dialogButton.setOnClickListener {
             alertDialog.dismiss()
         }
         alertDialog.show()
-    }
-
-    fun checkIfInDataBase() {
-        //TODO - check if this email is already in database, if yes - make text red and create a
-        // notification that this email is already registered
     }
 }

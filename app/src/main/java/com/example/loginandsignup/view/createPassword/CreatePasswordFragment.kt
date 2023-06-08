@@ -8,14 +8,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.api.ApiInterface
+import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentCreatePasswordBinding
+import com.example.loginandsignup.model.PasswordRegistrationRequest
+import com.example.loginandsignup.response.PasswordRegistrationResponse
+import com.example.loginandsignup.viewModel.RegistrationViewModel
+//import com.example.loginandsignup.model.PasswordRegistrationRequest
+//import com.example.loginandsignup.response.PasswordRegistrationResponse
+//import com.example.loginandsignup.viewModel.ViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreatePasswordFragment : Fragment() {
     private lateinit var binding: FragmentCreatePasswordBinding
+    private val apiInterface: ApiInterface = RetrofitInstance.api
+    private val viewModel: RegistrationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +51,7 @@ class CreatePasswordFragment : Fragment() {
             findNavController().navigate(R.id.action_createPasswordFragment2_to_additionalInfoFragment2)
         }
         binding.loginButton2.setOnClickListener {
+            registerPassword()
             findNavController().navigate(R.id.action_createPasswordFragment2_to_loginFragment2)
         }
         binding.isPasswordVisible.setOnClickListener {
@@ -89,6 +105,31 @@ class CreatePasswordFragment : Fragment() {
         val isPasswordVisible = binding.repeatPassword.transformationMethod == HideReturnsTransformationMethod.getInstance()
         val newTransformationMethod = if (isPasswordVisible) PasswordTransformationMethod.getInstance() else HideReturnsTransformationMethod.getInstance()
         binding.repeatPassword.transformationMethod = newTransformationMethod
-        binding.repeatPassword.setSelection(binding.createPassword.text?.length ?: 0)
+        binding.repeatPassword.setSelection(binding.repeatPassword.text?.length ?: 0)
+    }
+
+    private fun registerPassword() {
+        val password = binding.createPassword.text?.toString() ?: ""
+        val passwordRepeat = binding.repeatPassword.text?.toString() ?: ""
+        val request = PasswordRegistrationRequest(password, passwordRepeat)
+        val email: String = viewModel.email
+
+        val call = email.let { apiInterface.registerPassword(it, request) }
+        call.enqueue(object : Callback<PasswordRegistrationResponse> {
+            override fun onResponse(
+                call: Call<PasswordRegistrationResponse>,
+                response: Response<PasswordRegistrationResponse>
+            ) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), "Пароль сохранен", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<PasswordRegistrationResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Пароль не зарегистрирован", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
