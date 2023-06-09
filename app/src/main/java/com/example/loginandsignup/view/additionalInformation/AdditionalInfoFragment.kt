@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentAdditionalInfoBinding
@@ -32,13 +33,14 @@ class AdditionalInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupOnClickListeners()
         validateInputFields()
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        val pattern = Patterns.EMAIL_ADDRESS
-        return pattern.matcher(email).matches()
+    private fun isPhoneValid(phone: String): Boolean {
+        val pattern = Patterns.PHONE
+        return pattern.matcher(phone).matches()
     }
 
     @SuppressLint("ResourceAsColor")
@@ -46,9 +48,9 @@ class AdditionalInfoFragment : Fragment() {
         val name = binding.inputRegNameProfile.text?.toString() ?: ""
         val surname = binding.inputRegSurnameProfile.text?.toString() ?: ""
         val birthDate = binding.inputRegBirthProfile.text?.toString() ?: ""
-        val email = binding.inputEmailProfile.text?.toString() ?: ""
+        val phone = binding.inputPhoneNumber.text?.toString() ?: ""
 
-        val isValid = name.isNotEmpty() && surname.isNotEmpty() && birthDate.isNotEmpty() && isEmailValid(email)
+        val isValid = name.isNotEmpty() && surname.isNotEmpty() && birthDate.isNotEmpty() && isPhoneValid(phone)
 
         if (isValid) {
             binding.registration.setBackgroundResource(R.color.invalidButtonColor)
@@ -64,27 +66,30 @@ class AdditionalInfoFragment : Fragment() {
             val name = binding.inputRegNameProfile.text.toString()
             val surname = binding.inputRegSurnameProfile.text.toString()
             val birthDate = binding.inputRegBirthProfile.text.toString()
-            val email = binding.inputEmailProfile.text.toString()
+            val phone = binding.inputPhoneNumber.text.toString()
 
-            val personalInfoRequest = PersonalInfoRequest(name, surname, birthDate, email)
+            val personalInfoRequest = PersonalInfoRequest(name, surname, birthDate, phone)
 
             registerPersonalInfo(personalInfoRequest)
         }
     }
 
     private fun registerPersonalInfo(request: PersonalInfoRequest) {
-        apiInterface.registerPersonalInfo(request, request.email).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if(response.isSuccessful) {
-                    findNavController().navigate(R.id.action_additionalInfoFragment2_to_createPasswordFragment2)
-                } else {
-                    Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
-                }
-            }
+        val email = Utils.email
+        email.let {
+            apiInterface.registerPersonalInfo(request, it).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if(response.isSuccessful) {
+                            findNavController().navigate(R.id.action_additionalInfoFragment2_to_createPasswordFragment2)
+                        } else {
+                            Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
-            }
-        })
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
+                    }
+                })
+        }
     }
 }
