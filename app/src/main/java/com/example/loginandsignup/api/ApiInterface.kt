@@ -18,24 +18,24 @@ interface ApiInterface {
         @Query("email") email: String
     ): Call<Void>
 
-    @PUT("/auth/register/password/")
+    @PUT("http://35.234.124.146/auth/register/password/{email}/")
     fun registerPassword(
-        @Query("email") email: String,
+        @Path("email") email: String,
         @Body request: PasswordRegistrationRequest
     ): Call<PasswordRegistrationResponse>
 
     @POST("/auth/login/")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
-    @POST("/auth/request-password-reset/")
+    @POST("/auth/request-reset-email/")
     fun requestPasswordResetEmail(@Body request: PasswordResetEmailRequest): Call<PasswordResetEmailResponse>
 
-    @GET("/auth/reset-password/check/{uidb64}/{token}/")
+    @GET("/auth/password-reset/{uidb64}/{token}/")
     fun checkPasswordResetToken(
         @Path("uidb64") uidb64: String,
         @Path("token") token: String
     ): Call<PasswordResetTokenResponse>
 
-    @POST("/auth/reset-password/confirm/")
+    @PATCH("/auth/password-reset-complete/")
     fun setNewPassword(@Body request: NewPasswordRequest): Call<Void>
 }
