@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,9 +13,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.Utils
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentRegistrationBinding
 import com.example.loginandsignup.model.EmailRegistrationRequest
@@ -26,7 +28,6 @@ import retrofit2.Response
 
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding
-    private val viewModel: com.example.loginandsignup.viewModel.RegistrationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +50,6 @@ class RegistrationFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val email = binding.emailButton.text.toString()
             if (isValidEmail(email)) {
-                viewModel.email = email
                 registerWithEmail(email)
             } else {
                 Toast.makeText(requireContext(),"Invlalid email", Toast.LENGTH_SHORT).show()
@@ -70,6 +70,8 @@ class RegistrationFragment : Fragment() {
                 if (response.isSuccessful) {
                     sendVerificationEmail(email)
                     showCustomDialog()
+                    Log.d("RegistrationFragment", "Email value: $email")
+                    Utils.email = email
                 } else {
                     showEmailAlreadyRegisteredError()
                 }
