@@ -11,15 +11,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentCreatePasswordBinding
 import com.example.loginandsignup.model.PasswordRegistrationRequest
 import com.example.loginandsignup.response.PasswordRegistrationResponse
-import com.example.loginandsignup.viewModel.RegistrationViewModel
 //import com.example.loginandsignup.model.PasswordRegistrationRequest
 //import com.example.loginandsignup.response.PasswordRegistrationResponse
 //import com.example.loginandsignup.viewModel.ViewModel
@@ -29,8 +28,6 @@ import retrofit2.Response
 
 class CreatePasswordFragment : Fragment() {
     private lateinit var binding: FragmentCreatePasswordBinding
-    private val apiInterface: ApiInterface = RetrofitInstance.api
-    private val viewModel: RegistrationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +48,9 @@ class CreatePasswordFragment : Fragment() {
             findNavController().navigate(R.id.action_createPasswordFragment2_to_additionalInfoFragment2)
         }
         binding.loginButton2.setOnClickListener {
-            registerPassword()
-            findNavController().navigate(R.id.action_createPasswordFragment2_to_loginFragment2)
+            val password = binding.createPassword.text?.toString() ?: ""
+            val passwordRepeat = binding.repeatPassword.text?.toString() ?: ""
+            registerPassword(password, passwordRepeat)
         }
         binding.isPasswordVisible.setOnClickListener {
             togglePasswordVisibilityCreate()
@@ -108,19 +106,19 @@ class CreatePasswordFragment : Fragment() {
         binding.repeatPassword.setSelection(binding.repeatPassword.text?.length ?: 0)
     }
 
-    private fun registerPassword() {
-        val password = binding.createPassword.text?.toString() ?: ""
-        val passwordRepeat = binding.repeatPassword.text?.toString() ?: ""
+    private fun registerPassword(password: String, passwordRepeat: String) {
         val request = PasswordRegistrationRequest(password, passwordRepeat)
-        val email: String = viewModel.email
+        val apiInterface = RetrofitInstance.api
+        val email = Utils.email
 
-        val call = email.let { apiInterface.registerPassword(it, request) }
+        val call = apiInterface.registerPassword(email, request)
         call.enqueue(object : Callback<PasswordRegistrationResponse> {
             override fun onResponse(
                 call: Call<PasswordRegistrationResponse>,
                 response: Response<PasswordRegistrationResponse>
             ) {
                 if (response.isSuccessful) {
+                    findNavController().navigate(R.id.action_createPasswordFragment2_to_loginFragment2)
                     Toast.makeText(requireContext(), "Пароль сохранен", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_SHORT).show()
