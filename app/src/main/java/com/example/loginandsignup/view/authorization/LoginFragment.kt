@@ -12,17 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentLoginBinding
 import com.example.loginandsignup.model.LoginRequest
 import com.example.loginandsignup.response.LoginResponse
-import com.example.loginandsignup.viewModel.LoginViewModel
-//import com.example.loginandsignup.model.LoginRequest
-//import com.example.loginandsignup.response.LoginResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +28,6 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
     private val apiInterface: ApiInterface = RetrofitInstance.api
-    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +48,7 @@ class LoginFragment : Fragment() {
             val email = binding.emailButton.text.toString()
             val password = binding.passwordButton.text.toString()
             login(email, password)
+            findNavController().navigate(R.id.action_loginFragment2_to_profileFragment)
         }
         binding.forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment2_to_resetSendToEmailFragment)
@@ -106,10 +103,7 @@ class LoginFragment : Fragment() {
                         val tokens = loginResponse.tokens
                         val refreshToken = tokens.refresh
                         val accessToken = tokens.access
-                        loginViewModel.token = refreshToken
-                        loginViewModel.uidb64 = accessToken
                     }
-                    findNavController().navigate(R.id.action_loginFragment2_to_profileFragment)
                 } else {
                     emailOrPasswordIsNotRegistered()
                 }
