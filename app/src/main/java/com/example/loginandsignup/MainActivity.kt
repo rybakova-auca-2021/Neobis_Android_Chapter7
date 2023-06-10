@@ -1,10 +1,7 @@
 package com.example.loginandsignup
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 
 class MainActivity : AppCompatActivity() {
@@ -12,22 +9,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val action = intent.action ?: "empty"
-        val data = intent.data.toString()
-
-        Log.e("My Tag", action)
-        Log.e("My Tag", data)
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        val uri: Uri? = intent.data
-        if (uri != null) {
-            val params: List<String>? = uri.pathSegments
-            val id: String? = params?.get(params.size - 1)
-            Toast.makeText(this, "id=$id", Toast.LENGTH_SHORT).show()
+        val uri = intent.data?.toString()
 
-            navController.navigate(R.id.additionalInfoFragment2)
+        val tokenForVerifying = getToken(uri)
+        if (tokenForVerifying != null) {
+            Utils.tokenEmail = tokenForVerifying
         }
+        if (uri != null) {
+            if(uri.contains("auth/password-reset")) {
+                navController.navigate(R.id.resetPasswordFragment)
+            } else {
+                navController.navigate(R.id.additionalInfoFragment2)
+            }
+        }
+    }
+    private fun getToken(uri: String?) : String? {
+        var token = ""
+        if (uri != null && uri.contains("auth/email-verify")) {
+            token = uri.removePrefix("http://35.234.124.146/auth/email-verify/?token=")
+        }
+        return token
     }
 }

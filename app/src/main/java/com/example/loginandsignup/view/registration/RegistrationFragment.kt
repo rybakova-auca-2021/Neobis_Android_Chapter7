@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
 import com.example.loginandsignup.Utils
+import com.example.loginandsignup.Utils.token
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentRegistrationBinding
 import com.example.loginandsignup.model.EmailRegistrationRequest
@@ -68,7 +69,7 @@ class RegistrationFragment : Fragment() {
                 response: Response<EmailRegistrationResponse>
             ) {
                 if (response.isSuccessful) {
-                    sendVerificationEmail(email)
+                    sendVerificationEmail()
                     showCustomDialog()
                     Log.d("RegistrationFragment", "Email value: $email")
                     Utils.email = email
@@ -82,9 +83,11 @@ class RegistrationFragment : Fragment() {
         })
     }
 
-    private fun sendVerificationEmail(email: String) {
+    private fun sendVerificationEmail() {
+        val tokenEmail = Utils.tokenEmail
         val apiInterface = RetrofitInstance.api
-        val call = apiInterface.verifyEmail(email)
+
+        val call = apiInterface.verifyEmail(tokenEmail)
         call.enqueue(object : Callback<EmailVerificationResponse> {
             override fun onResponse(
                 call: Call<EmailVerificationResponse>,

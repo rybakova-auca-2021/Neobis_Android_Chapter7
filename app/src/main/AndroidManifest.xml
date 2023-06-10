@@ -30,7 +30,20 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="35.234.124.146"
-                    android:scheme="http" />
+                    android:scheme="http"
+                    android:pathPrefix="/auth/email-verify" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="35.234.124.146"
+                    android:scheme="http"
+                    android:pathPrefix="/auth/password-reset" />
             </intent-filter>
         </activity>
     </application>

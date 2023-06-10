@@ -9,7 +9,7 @@ interface ApiInterface {
     @POST("/auth/register/email/")
     fun registerWithEmail(@Body request: EmailRegistrationRequest): Call<EmailRegistrationResponse>
 
-    @GET("/auth/verify-email/")
+    @GET("/auth/email-verify/")
     fun verifyEmail(@Query("token") token: String): Call<EmailVerificationResponse>
 
     @PUT("/auth/register/personal-info/")
