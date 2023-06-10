@@ -28,8 +28,9 @@ import retrofit2.Response
 class ResetPasswordFragment : Fragment() {
     private lateinit var binding: FragmentResetPasswordBinding
     private val apiInterface: ApiInterface = RetrofitInstance.api
-    private val uidb64 = Utils.uidb64
-    private val token = Utils.token
+    val uidb64 = Utils.uidb64
+    val token = Utils.token
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +50,7 @@ class ResetPasswordFragment : Fragment() {
             findNavController().navigate(R.id.action_resetPasswordFragment_to_resetSendToEmailFragment)
         }
         binding.loginButton2.setOnClickListener{
-            checkPasswordResetToken(uidb64, token)
+            checkPasswordResetToken()
         }
         binding.isPasswordVisible.setOnClickListener {
             togglePasswordVisibilityCreate()
@@ -59,7 +60,7 @@ class ResetPasswordFragment : Fragment() {
         }
     }
 
-    private fun checkPasswordResetToken(uidb64: String, token: String) {
+    private fun checkPasswordResetToken() {
         apiInterface.checkPasswordResetToken(uidb64, token).enqueue(object : Callback<PasswordResetTokenResponse> {
             override fun onResponse(call: Call<PasswordResetTokenResponse>, response: Response<PasswordResetTokenResponse>) {
                 if (response.isSuccessful) {

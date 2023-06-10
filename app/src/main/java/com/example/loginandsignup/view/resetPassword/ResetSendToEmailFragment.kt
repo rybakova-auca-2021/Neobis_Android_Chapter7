@@ -13,6 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
+import com.example.loginandsignup.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentResetSendToEmailBinding
@@ -74,6 +75,14 @@ class ResetSendToEmailFragment : Fragment() {
                 call: Call<PasswordResetEmailResponse>,
                 response: Response<PasswordResetEmailResponse>
             ) {
+                val uidb64 = response.body()?.uidb64
+                val token = response.body()?.token
+                if (uidb64 != null) {
+                    Utils.uidb64 = uidb64
+                }
+                if (token != null) {
+                    Utils.token = token
+                }
                 showCustomDialog()
                 findNavController().navigate(R.id.action_resetSendToEmailFragment_to_resetPasswordFragment)
             }
