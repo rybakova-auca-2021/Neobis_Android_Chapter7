@@ -15,6 +15,7 @@ import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentAdditionalInfoBinding
 import com.example.loginandsignup.model.PersonalInfoRequest
+import com.example.loginandsignup.response.EmailVerificationResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +37,7 @@ class AdditionalInfoFragment : Fragment() {
 
         setupOnClickListeners()
         validateInputFields()
+        emailVerification()
     }
 
     private fun isPhoneValid(phone: String): Boolean {
@@ -72,6 +74,29 @@ class AdditionalInfoFragment : Fragment() {
 
             registerPersonalInfo(personalInfoRequest)
         }
+    }
+
+    private fun emailVerification() {
+        val tokenEmail = Utils.tokenEmail
+        val apiInterface = RetrofitInstance.api
+
+        val call = apiInterface.verifyEmail(tokenEmail)
+        call.enqueue(object : Callback<EmailVerificationResponse> {
+            override fun onResponse(
+                call: Call<EmailVerificationResponse>,
+                response: Response<EmailVerificationResponse>
+            ) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), "Email successfully activated", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to activate", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<EmailVerificationResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun registerPersonalInfo(request: PersonalInfoRequest) {

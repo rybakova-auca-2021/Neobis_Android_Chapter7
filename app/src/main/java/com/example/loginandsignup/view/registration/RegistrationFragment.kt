@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
 import com.example.loginandsignup.Utils
+import com.example.loginandsignup.Utils.email
 import com.example.loginandsignup.Utils.token
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentRegistrationBinding
@@ -69,7 +70,6 @@ class RegistrationFragment : Fragment() {
                 response: Response<EmailRegistrationResponse>
             ) {
                 if (response.isSuccessful) {
-                    sendVerificationEmail()
                     showCustomDialog()
                     Log.d("RegistrationFragment", "Email value: $email")
                     Utils.email = email
@@ -78,25 +78,6 @@ class RegistrationFragment : Fragment() {
                 }
             }
             override fun onFailure(call: Call<EmailRegistrationResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun sendVerificationEmail() {
-        val tokenEmail = Utils.tokenEmail
-        val apiInterface = RetrofitInstance.api
-
-        val call = apiInterface.verifyEmail(tokenEmail)
-        call.enqueue(object : Callback<EmailVerificationResponse> {
-            override fun onResponse(
-                call: Call<EmailVerificationResponse>,
-                response: Response<EmailVerificationResponse>
-            ) {
-                Toast.makeText(requireContext(), "Mail sent", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onFailure(call: Call<EmailVerificationResponse>, t: Throwable) {
                 Toast.makeText(requireContext(), "Failed. Please try again.", Toast.LENGTH_SHORT).show()
             }
         })
