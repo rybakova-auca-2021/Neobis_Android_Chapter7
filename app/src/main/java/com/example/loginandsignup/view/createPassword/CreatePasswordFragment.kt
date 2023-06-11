@@ -13,8 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
-import com.example.loginandsignup.Utils
-import com.example.loginandsignup.api.ApiInterface
+import com.example.loginandsignup.util.Utils
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentCreatePasswordBinding
 import com.example.loginandsignup.model.PasswordRegistrationRequest
@@ -87,7 +86,6 @@ class CreatePasswordFragment : Fragment() {
 
             binding.loginButton2.isEnabled = isValid
 
-            // Change button color based on validity
             val buttonColor = if (isValid) R.color.invalidButtonColor else R.color.validButtonColor
             val buttonColorRes = ContextCompat.getColor(requireContext(), buttonColor)
             binding.loginButton2.setBackgroundColor(buttonColorRes)
@@ -121,7 +119,7 @@ class CreatePasswordFragment : Fragment() {
                     findNavController().navigate(R.id.action_createPasswordFragment2_to_loginFragment2)
                     Toast.makeText(requireContext(), "Пароль сохранен", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Почта не активирована", Toast.LENGTH_SHORT).show()
                 }
             }
 

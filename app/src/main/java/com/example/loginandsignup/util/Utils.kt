@@ -1,4 +1,4 @@
-package com.example.loginandsignup
+package com.example.loginandsignup.util
 
 object Utils {
     var email: String = ""

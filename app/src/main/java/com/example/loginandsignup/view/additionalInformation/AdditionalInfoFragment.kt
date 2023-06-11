@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
-import com.example.loginandsignup.Utils
+import com.example.loginandsignup.util.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentAdditionalInfoBinding

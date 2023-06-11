@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
-import com.example.loginandsignup.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentLoginBinding
@@ -48,7 +47,6 @@ class LoginFragment : Fragment() {
             val email = binding.emailButton.text.toString()
             val password = binding.passwordButton.text.toString()
             login(email, password)
-            findNavController().navigate(R.id.action_loginFragment2_to_profileFragment)
         }
         binding.forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment2_to_resetSendToEmailFragment)
@@ -101,9 +99,8 @@ class LoginFragment : Fragment() {
                     val loginResponse = response.body()
                     if (loginResponse != null) {
                         val tokens = loginResponse.tokens
-                        val refreshToken = tokens.refresh
-                        val accessToken = tokens.access
                     }
+                    findNavController().navigate(R.id.action_loginFragment2_to_profileFragment)
                 } else {
                     emailOrPasswordIsNotRegistered()
                 }

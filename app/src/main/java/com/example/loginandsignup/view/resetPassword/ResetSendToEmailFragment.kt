@@ -13,14 +13,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
-import com.example.loginandsignup.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentResetSendToEmailBinding
 import com.example.loginandsignup.model.PasswordResetEmailRequest
-import com.example.loginandsignup.response.EmailVerificationResponse
 import com.example.loginandsignup.response.PasswordResetEmailResponse
-import com.example.loginandsignup.response.PasswordResetTokenResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

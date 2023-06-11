@@ -1,7 +1,8 @@
 package com.example.loginandsignup.view.resetPassword
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.graphics.Color
-import android.media.session.MediaSession.Token
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -9,13 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginandsignup.R
-import com.example.loginandsignup.Utils
+import com.example.loginandsignup.util.Utils
 import com.example.loginandsignup.api.ApiInterface
 import com.example.loginandsignup.api.RetrofitInstance
 import com.example.loginandsignup.databinding.FragmentResetPasswordBinding
@@ -74,7 +75,6 @@ class ResetPasswordFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<PasswordResetTokenResponse>, t: Throwable) {
-                //Request failed
             }
         })
     }
@@ -89,6 +89,7 @@ class ResetPasswordFragment : Fragment() {
                 if (response.isSuccessful) {
                     Toast.makeText(requireContext(), "Пароль успешно сброшен", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment2)
+                    showNotification()
                 } else {
                     Toast.makeText(requireContext(), "Failed to set a new password. Please try again.\"", Toast.LENGTH_SHORT).show()
                 }
@@ -127,7 +128,6 @@ class ResetPasswordFragment : Fragment() {
 
             binding.loginButton2.isEnabled = isValid
 
-            // Change button color based on validity
             val buttonColor = if (isValid) R.color.invalidButtonColor else R.color.validButtonColor
             val buttonColorRes = ContextCompat.getColor(requireContext(), buttonColor)
             binding.loginButton2.setBackgroundColor(buttonColorRes)
@@ -145,5 +145,21 @@ class ResetPasswordFragment : Fragment() {
         val newTransformationMethod = if (isPasswordVisible) PasswordTransformationMethod.getInstance() else HideReturnsTransformationMethod.getInstance()
         binding.repeatPassword.transformationMethod = newTransformationMethod
         binding.repeatPassword.setSelection(binding.createPassword.text?.length ?: 0)
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun showNotification() {
+        val dialogView = layoutInflater.inflate(R.layout.notification, null)
+
+        val builder = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+
+        val alertDialog = builder.create()
+
+        dialogView.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
     }
 }
