@@ -28,8 +28,6 @@ import retrofit2.Response
 class ResetPasswordFragment : Fragment() {
     private lateinit var binding: FragmentResetPasswordBinding
     private val apiInterface: ApiInterface = RetrofitInstance.api
-    val uidb64 = Utils.uidb64
-    val token = Utils.token
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +41,7 @@ class ResetPasswordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navigation()
         setupPasswordValidation()
+        checkPasswordResetToken()
     }
 
     private fun navigation() {
@@ -50,7 +49,9 @@ class ResetPasswordFragment : Fragment() {
             findNavController().navigate(R.id.action_resetPasswordFragment_to_resetSendToEmailFragment)
         }
         binding.loginButton2.setOnClickListener{
-            checkPasswordResetToken()
+            val password = binding.createPassword.text.toString()
+            val password_repeat = binding.repeatPassword.text.toString()
+            setNewPassword(password, password_repeat)
         }
         binding.isPasswordVisible.setOnClickListener {
             togglePasswordVisibilityCreate()
@@ -61,12 +62,12 @@ class ResetPasswordFragment : Fragment() {
     }
 
     private fun checkPasswordResetToken() {
+        val uidb64 = Utils.uidb64
+        val token = Utils.token
         apiInterface.checkPasswordResetToken(uidb64, token).enqueue(object : Callback<PasswordResetTokenResponse> {
             override fun onResponse(call: Call<PasswordResetTokenResponse>, response: Response<PasswordResetTokenResponse>) {
                 if (response.isSuccessful) {
-                    val password = binding.createPassword.text.toString()
-                    val password_repeat = binding.repeatPassword.text.toString()
-                    setNewPassword(password, password_repeat)
+                    Toast.makeText(requireContext(), "Enter new password", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), "fail to check the validity of a password reset token", Toast.LENGTH_SHORT).show()
                 }
@@ -79,6 +80,8 @@ class ResetPasswordFragment : Fragment() {
     }
 
     private fun setNewPassword(password: String, password_repeat: String) {
+        val uidb64 = Utils.uidb64
+        val token = Utils.token
         val newPasswordRequest = NewPasswordRequest(password, password_repeat, token, uidb64)
 
         apiInterface.setNewPassword(newPasswordRequest).enqueue(object : Callback<Void> {

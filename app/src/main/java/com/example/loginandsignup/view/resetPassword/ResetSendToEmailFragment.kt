@@ -75,16 +75,7 @@ class ResetSendToEmailFragment : Fragment() {
                 call: Call<PasswordResetEmailResponse>,
                 response: Response<PasswordResetEmailResponse>
             ) {
-                val uidb64 = response.body()?.uidb64
-                val token = response.body()?.token
-                if (uidb64 != null) {
-                    Utils.uidb64 = uidb64
-                }
-                if (token != null) {
-                    Utils.token = token
-                }
                 showCustomDialog()
-                findNavController().navigate(R.id.action_resetSendToEmailFragment_to_resetPasswordFragment)
             }
 
             override fun onFailure(call: Call<PasswordResetEmailResponse>, t: Throwable) {
